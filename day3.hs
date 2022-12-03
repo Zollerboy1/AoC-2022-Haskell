@@ -14,9 +14,9 @@ part2 :: [String] -> [[String]]
 part2 = chunksOf 3
 
 answer :: [[String]] -> Int
-answer = sum . map priority . map commonElt
+answer = sum . map (priority . commonElt)
 
-main :: IO()
+main :: IO ()
 main = do
     input <- readFile "day3.txt"
     let lines' = lines input
