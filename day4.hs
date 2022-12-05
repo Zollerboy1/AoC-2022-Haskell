@@ -1,22 +1,14 @@
+import Control.Monad ((<=<))
 import Data.List (intersect)
 import Data.List.Split (splitOn)
 import Data.Tuple (swap)
 import Text.Read (readMaybe)
 
-
-isSubset :: (Eq a) => ([a], [a]) -> Bool
-isSubset = (==) <$> fst <*> uncurry intersect
-
-countWith :: (a -> Bool) -> [a] -> Int
-countWith = (length .) . filter
-
-tuple2 :: [a] -> Maybe (a, a)
-tuple2 [x, y] = Just (x, y)
-tuple2 _ = Nothing
+import Helpers (countWith, isSubset, tuple2, (<.>))
 
 
 parse :: String -> Maybe [([Int], [Int])]
-parse = mapM ((tuple2 =<<) . mapM ((uncurry enumFromTo <$>) . (tuple2 =<<) . mapM readMaybe . splitOn "-") . splitOn ",") . lines
+parse = mapM (tuple2 <=< mapM (uncurry enumFromTo <.> tuple2 <=< mapM readMaybe . splitOn "-") . splitOn ",") . lines
 
 part1 :: [([Int], [Int])] -> Int
 -- part1 = countWith $ or . (isSubset <$>) . ([id, swap] <*>) . pure
