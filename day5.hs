@@ -23,11 +23,10 @@ parse (s, c) = case (parseStacks s, parseCommands c) of
 
 performCommand :: (Int -> Stack -> Maybe ([Char], Stack)) -> Command -> [Stack] -> [Stack]
 performCommand f (n, src, dst) s = fromJust $ do
-        srcZipper <- steps (src - 1) (getZipper s)
-        (chunks, sSrc') <- f n =<< getElt srcZipper
-        dstZipper <- steps (dst - src) =<< replaceElt sSrc' srcZipper
-        getList <$> mapElt (chunks ++) dstZipper
-
+    srcZipper <- steps (src - 1) (getZipper s)
+    (chunks, sSrc') <- f n =<< getElt srcZipper
+    dstZipper <- steps (dst - src) =<< replaceElt sSrc' srcZipper
+    getList <$> mapElt (chunks ++) dstZipper
 
 part1 :: Int -> Stack -> Maybe ([Char], Stack)
 part1 = flip $ (swap <.>) . flip steps . getZipper
