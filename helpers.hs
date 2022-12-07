@@ -29,6 +29,7 @@ module Helpers (
     mapElt
 ) where
 
+import Control.Monad (ap, liftM2)
 import Data.List (intersect)
 import Data.List.Split (splitOn)
 
@@ -91,7 +92,7 @@ thd3 (_, _, z) = z
 g <.> f = fmap g . f
 infixr 9 <.>
 
-(.-.) :: (b -> d, c -> e) -> (a -> (b, c)) -> (a -> (d, e))
+(.-.) :: (b -> d, c -> e) -> (a -> (b, c)) -> a -> (d, e)
 (g1, g2) .-. f = \x -> let (y, z) = f x in (g1 y, g2 z)
 infixr 9 .-.
 
