@@ -44,5 +44,5 @@ main = do
     case parse $ superlines input of
         Nothing -> putStrLn "Input is corrupted"
         Just parsed -> do
-            putStrLn (show $ uncurry (result part1) parsed)
-            putStrLn (show $ uncurry (result part2) parsed)
+            putStrLn (uncurry (result part1) parsed)
+            putStrLn (uncurry (result part2) parsed)
